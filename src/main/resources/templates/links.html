@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	href="../../css/bootstrap.min.css" />
+</head>
+<body>
+	<div class="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#"> Spring Boot sample HDIV </a>
+				<ul class="nav">
+					<li><a th:href="@{/}" href="home.html"> Home </a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="content">
+			<h2>Link page successfully reached!</h2>
+			<p>
+				Try to modify these urls to trigger an validation error.
+			</p>
+			<ul>
+				<li><a th:href="@{/links}">Link example</a></li>
+				<li><a th:href="@{/links(id=2)}">Link example with parameters</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
