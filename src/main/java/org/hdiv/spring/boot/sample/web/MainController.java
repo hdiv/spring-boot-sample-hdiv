@@ -26,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MainController {
@@ -50,13 +51,15 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	String submit(@Valid @ModelAttribute FormBean bean, BindingResult bindingResult) {
+	String submit(@Valid @ModelAttribute FormBean bean, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
 			return "form";
 		}
+		redirectAttributes.addFlashAttribute("resultFormBean", bean);
 		LOG.info("Name: " + bean.getName() + " Type: " + bean.getType());
-		return "form";
+		return "redirect:/form";
 	}
 
 }

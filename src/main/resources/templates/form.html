@@ -16,9 +16,9 @@
 			</div>
 		</div>
 		<div class="content">
-			<div class="alert alert-success" th:if="${formBean.name != null}">
-				Name: <span th:text="${formBean.name}"></span>, 
-				Type: <span th:text="${formBean.type}"></span>
+			<div class="alert alert-success" th:if="${resultFormBean != null}">
+				Name: <span th:text="${resultFormBean.name}"></span>, 
+				Type: <span th:text="${resultFormBean.type}"></span>
 			</div>
 			<h2>Sample form</h2>
 			<form action="#" th:action="@{/form}" th:object="${formBean}" method="post">
