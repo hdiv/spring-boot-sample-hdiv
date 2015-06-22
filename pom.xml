@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.3.RELEASE</version>
+		<version>1.2.4.RELEASE</version>
 	</parent>
 	<artifactId>spring-boot-sample-hdiv</artifactId>
 	<name>Spring Boot HDIV Sample</name>
@@ -27,8 +27,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hdiv</groupId>
-			<artifactId>spring-boot-starter-hdiv</artifactId>
+			<artifactId>spring-boot-starter-hdiv-thymeleaf</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
+			<type>pom</type>
 		</dependency>
 	</dependencies>
 
