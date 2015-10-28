@@ -15,8 +15,13 @@
  */
 package org.hdiv.spring.boot.sample;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.hdiv.config.annotation.ExclusionRegistry;
-import org.hdiv.config.annotation.configuration.HdivWebSecurityConfigurerAdapter;
+import org.hdiv.config.annotation.HdivWebSecurityConfigurationSupport;
+import org.hdiv.filter.DefaultValidatorErrorHandler;
+import org.hdiv.filter.ValidatorErrorHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -76,17 +81,31 @@ public class SampleHdivApplication {
 		}
 	}
 	
-	@Bean
-	public ApplicationWebSecurity applicationWebSecurity() {
-		return new ApplicationWebSecurity();
-	}
+//	@Bean
+//	public ApplicationWebSecurity applicationWebSecurity() {
+//		return new ApplicationWebSecurity();
+//	}
 
-	protected static class ApplicationWebSecurity extends HdivWebSecurityConfigurerAdapter {
+	@Configuration
+	public static class ApplicationWebSecurity extends HdivWebSecurityConfigurationSupport {
 
 		@Override
 		public void addExclusions(ExclusionRegistry registry) {
-			registry.addUrlExclusions("/login");
+			registry.addUrlExclusions("/", "/login");
+			registry.addParamExclusions("_csrf");
 		}
+		
+		@Override
+		public ValidatorErrorHandler validatorErrorHandler() {
+			return new DefaultValidatorErrorHandler() {
+				@Override
+				public void handleValidatorError(HttpServletRequest request, HttpServletResponse response, String errorCode) {
+					System.out.println("Attack!!");
+					super.handleValidatorError(request, response, errorCode);
+				}
+			};
+		}
+		
 	}
 
 }
