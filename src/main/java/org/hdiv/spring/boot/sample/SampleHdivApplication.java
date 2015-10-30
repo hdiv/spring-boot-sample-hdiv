@@ -91,19 +91,22 @@ public class SampleHdivApplication {
 
 		@Override
 		public void addExclusions(ExclusionRegistry registry) {
-			registry.addUrlExclusions("/", "/login");
+			registry.addUrlExclusions("/", "/login", ".*.ico");
 			registry.addParamExclusions("_csrf");
 		}
 		
 		@Override
 		public ValidatorErrorHandler validatorErrorHandler() {
-			return new DefaultValidatorErrorHandler() {
+			DefaultValidatorErrorHandler validatorErrorHandler = new DefaultValidatorErrorHandler() {
 				@Override
 				public void handleValidatorError(HttpServletRequest request, HttpServletResponse response, String errorCode) {
 					System.out.println("Attack!!");
 					super.handleValidatorError(request, response, errorCode);
 				}
 			};
+			validatorErrorHandler.setUserData(securityUserData());
+			validatorErrorHandler.setConfig(hdivConfig());
+			return validatorErrorHandler;
 		}
 		
 	}
