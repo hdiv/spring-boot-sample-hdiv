@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2014 hdiv.org
+ * Copyright 2005-2018 hdiv.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan
 public class SampleHdivApplication {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(SampleHdivApplication.class, args);
 	}
 
@@ -41,41 +41,39 @@ public class SampleHdivApplication {
 	public WebConfig webConfig() {
 		return new WebConfig();
 	}
-	
-	protected static class WebConfig extends WebMvcConfigurerAdapter{
-		
+
+	protected static class WebConfig extends WebMvcConfigurerAdapter {
+
 		@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
+		public void addViewControllers(final ViewControllerRegistry registry) {
 			registry.addViewController("/login").setViewName("login");
 		}
 	}
-	
+
 	@Bean
 	public ApplicationSecurity applicationSecurity() {
 		return new ApplicationSecurity();
 	}
 
 	protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
-		
+
 		@Override
-		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	        auth
-	            .inMemoryAuthentication()
-	                .withUser("david").password("david").roles("USER","ADMIN").and()
-	                .withUser("alex").password("alex").roles("USER").and()
-	                .withUser("tim").password("tim").roles("USER");
+		protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+			auth.inMemoryAuthentication()//
+					.withUser("david").password("david").roles("USER", "ADMIN").and()//
+					.withUser("alex").password("alex").roles("USER").and()//
+					.withUser("tim").password("tim").roles("USER");
 		}
-		
+
 		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http
-				.authorizeRequests().anyRequest().fullyAuthenticated().and()
-				.formLogin()
-					.loginPage("/login")
+		protected void configure(final HttpSecurity http) throws Exception {
+			http.authorizeRequests().anyRequest().fullyAuthenticated().and()//
+					.formLogin()//
+					.loginPage("/login")//
 					.failureUrl("/login?error").permitAll();
 		}
 	}
-	
+
 	@Bean
 	public ApplicationWebSecurity applicationWebSecurity() {
 		return new ApplicationWebSecurity();
@@ -84,7 +82,7 @@ public class SampleHdivApplication {
 	protected static class ApplicationWebSecurity extends HdivWebSecurityConfigurerAdapter {
 
 		@Override
-		public void addExclusions(ExclusionRegistry registry) {
+		public void addExclusions(final ExclusionRegistry registry) {
 			registry.addUrlExclusions("/login");
 		}
 	}

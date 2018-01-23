@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2014 hdiv.org
+ * Copyright 2005-2018 hdiv.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,15 +44,15 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	String form(Model model) {
+	String form(final Model model) {
 
 		model.addAttribute("formBean", new FormBean());
 		return "form";
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	String submit(@Valid @ModelAttribute FormBean bean, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes) {
+	String submit(@Valid @ModelAttribute final FormBean bean, final BindingResult bindingResult,
+			final RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
 			return "form";
