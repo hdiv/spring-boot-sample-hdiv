@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -67,6 +68,7 @@ public class SampleHdivApplication {
 
 		@Override
 		protected void configure(final HttpSecurity http) throws Exception {
+			http.authorizeRequests().antMatchers("/css/**").permitAll();
 			http.authorizeRequests().anyRequest().fullyAuthenticated().and()//
 					.formLogin()//
 					.loginPage("/login")//
@@ -85,6 +87,12 @@ public class SampleHdivApplication {
 		public void addExclusions(final ExclusionRegistry registry) {
 			registry.addUrlExclusions("/login");
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@Bean
+	public static NoOpPasswordEncoder passwordEncoder() {
+		return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 	}
 
 }
