@@ -18,20 +18,16 @@ package org.hdiv.spring.boot.sample;
 import org.hdiv.config.annotation.ExclusionRegistry;
 import org.hdiv.config.annotation.configuration.HdivWebSecurityConfigurerAdapter;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan
+@SpringBootApplication
 public class SampleHdivApplication {
 
 	public static void main(final String[] args) {
@@ -43,7 +39,7 @@ public class SampleHdivApplication {
 		return new WebConfig();
 	}
 
-	protected static class WebConfig extends WebMvcConfigurerAdapter {
+	protected static class WebConfig implements WebMvcConfigurer {
 
 		@Override
 		public void addViewControllers(final ViewControllerRegistry registry) {

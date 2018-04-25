@@ -15,7 +15,11 @@
  */
 package org.hdiv.spring.boot.sample.bean;
 
-public class FormBean {
+import java.io.Serializable;
+
+public class FormBean implements Serializable {
+
+	private static final long serialVersionUID = -1943240823126145513L;
 
 	private String name;
 
